@@ -16,18 +16,22 @@ const ModifyReview = () => {
     useEffect(() => {
         if (dataFetchedRef.current) return;
         dataFetchedRef.current = true;
-        const detailQuery = location.state?.revContent;
+        console.log(location.state);
+        const detailQuery = location.state?.revContant;
         const hotelId = location.state?.hotelId;
         sethotelId(hotelId);
+        setReviewId(detailQuery?.reviewId || "");
         setRating(detailQuery?.rating || "");
         setTitle(detailQuery?.title || "");
         setText(detailQuery?.text || "");
-        setReviewId(detailQuery?.reviewId || "");
     }, [location]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setMessage("");
+        if(!reviewId) {
+            console.log("reviewId is missing");
+        }
         const params = new URLSearchParams({
             reviewId: reviewId,
             rating: rating,
@@ -52,21 +56,23 @@ const ModifyReview = () => {
         }
     };
 
-    return(
+    return (
         <div className="container">
             <h1>Modify Review</h1>
             <form onSubmit={handleSubmit}>
                 <input type="hidden" name="reviewId" value={reviewId} />
-                <label htmlFor="rating">Rating</label>
+
+                <label htmlFor="rating">Rating:</label>
                 <input
                     type="number"
                     id="rating"
                     name="rating"
                     value={rating}
-                    onChange={(e) => setrating(e.target.value)}
+                    onChange={(e) => setRating(e.target.value)}
                     required
                 />
-                <label htmlFor="title">Title</label>
+
+                <label htmlFor="title">Title:</label>
                 <input
                     type="text"
                     id="title"
@@ -75,6 +81,7 @@ const ModifyReview = () => {
                     onChange={(e) => setTitle(e.target.value)}
                     required
                 />
+
                 <label htmlFor="text">Review Text:</label>
                 <textarea
                     id="text"
@@ -83,11 +90,12 @@ const ModifyReview = () => {
                     onChange={(e) => setText(e.target.value)}
                     required
                 ></textarea>
+
                 <button type="submit">Confirm</button>
                 {message && <p className="error">{message}</p>}
             </form>
         </div>
     );
-);
+};
 
 export default ModifyReview;

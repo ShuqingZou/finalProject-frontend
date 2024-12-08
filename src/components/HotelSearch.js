@@ -19,15 +19,15 @@ const HotelSearch = () => {
         setResults([]);
 
         try {
-            const response = await fetch('http://localhost:8080/hotels', {
+            const response = await fetch('/hotels', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ search: searchTerm }),
             });
-            if(response.status === 401) {
-                window.location.replace('/login');
-                return;
-            }
+            //if(response.status === 401) {
+            //    window.location.replace('/login');
+            //    return;
+            //}
             const result = await response.json();
 
             if (result.success) {

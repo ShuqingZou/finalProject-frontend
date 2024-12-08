@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './HotelDetail.css';
 
 const HotelDetail = () => {
     const { hotelId } = useParams();
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
     const [hotel, setHotel] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -13,31 +17,33 @@ const HotelDetail = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        const fetchHotelDetails = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/hotels/${hotelId}`);
-                const data = await response.json();
-                if (data.success) {
-                    setHotel({
-                        id: data.hotelId,
-                        name: data.name,
-                        address: data.address,
-                        averageRating: data.averageRating,
-                        expediaUrl: data.expediaUrl,
-                    });
-                    setReviews(data.reviews || []);
-                    setIsFavorite(data.isFavorite || false);
-                } else {
-                    setError(data.message || 'Failed to fetch hotel details.');
-                }
-            } catch (err) {
-                setError('Failed to fetch hotel details. Please try again.');
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchHotelDetails();
     }, [hotelId]);
+
+    const fetchHotelDetails = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/hotels/${hotelId}`);
+            const data = await response.json();
+            if (data.success) {
+                setHotel({
+                    id: data.hotelId,
+                    name: data.name,
+                    address: data.address,
+                    averageRating: data.averageRating,
+                    expediaUrl: data.expediaUrl,
+                });
+                setReviews(data.reviews || []);
+                setIsFavorite(data.isFavorite || false);
+            } else {
+                setError(data.message || 'Failed to fetch hotel details.');
+            }
+        } catch (err) {
+            setError('Failed to fetch hotel details. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleFavorite = async () => {
         try{
@@ -62,7 +68,6 @@ const HotelDetail = () => {
     };
 
     const handleExpediaClick = async () => {
-        console.log("here");
         try{
             const response = await fetch(`http://localhost:8080/hotels/${hotelId}`,{
                 method: 'POST',
@@ -85,6 +90,34 @@ const HotelDetail = () => {
             }
         } catch(error){
             console.error('Error logging Expedia Click: ', error);
+        }
+    };
+
+    const editRev = (item) => {
+        navigate("/ModifyReview", {
+            state: { revContant: item, hotelId: hotelId },
+        });
+    };
+
+    const delRev = async (item) => {
+        const params = new URLSearchParams({
+            reviewId: item.reviewId,
+        });
+        setMessage("");
+        try {
+            const response = await fetch(`/deleteReview?${params}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                fetchHotelDetails();
+            } else {
+                setMessage(result.message || "An error occurred.");
+            }
+        } catch (error) {
+            setMessage("Failed to fetch results. Please try again.");
         }
     };
 
@@ -129,14 +162,40 @@ const HotelDetail = () => {
             )}
             <div className="reviews-section">
                 <h2>Reviews</h2>
+                <Link to={`/addReview/${hotelId}`} className="hotel-link">
+                    <button>addReview</button>
+                </Link>
                 {currentReviews.length > 0 ? (
                     <ul className="reviews-list">
                         {currentReviews.map((review) => (
                             <li key={review.reviewId} className="review-item">
-                                <h3 className="review-title">{review.title}</h3>
-                                <p className="review-text">{review.text}</p>
-                                <p className="review-info">
-                                    <strong>{review.username}</strong> - {review.date} - Rating: {review.rating}
+                                {review.ownerFlag && (
+                                    <div style={{float: "right", display: "flex"}}>
+                                        <span
+                                            style={{marginRight: "5px", cursor: "pointer"}}
+                                            onClick={() => editRev(review)}
+                                        >
+                                            📝
+                                        </span>
+                                        <span
+                                            style={{cursor: "pointer"}}
+                                            onClick={() => delRev(review)}
+                                        >
+                                            ❌
+                                        </span>
+                                    </div>
+                                )}
+                                <p className="review-title">
+                                    title:
+                                    <span style={{fontWeight: "normal"}}>{review.title}</span>
+                                </p>
+                                <p className="review-title">
+                                    text:
+                                    <span style={{fontWeight: "normal"}}>{review.text}</span>
+                                </p>
+                                <p className="review-info" style={{height: "30px"}}>
+                                    <strong>{review.username}</strong> - {review.date} - Rating:{" "}
+                                    {review.rating}
                                 </p>
                             </li>
                         ))}

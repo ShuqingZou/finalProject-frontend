@@ -81,7 +81,7 @@ const AddReview = () => {
                 ></textarea>
                 <button type="submit">Submit Review</button>
             </form>
-            {message && className="error">{message}</div>}
+            {message && <p className="error">{message}</p>}
         </div>
     );
 };

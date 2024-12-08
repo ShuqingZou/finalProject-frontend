@@ -7,6 +7,8 @@ import HotelSearch from "./components/HotelSearch";
 import HotelDetail from "./components/HotelDetail";
 import User from "./components/User";
 import History from "./components/History";
+import ModifyReview from "./components/ModifyReview";
+import AddReview from "./components/AddReview";
 import "./App.css";
 
 const App = () => {
@@ -25,7 +27,9 @@ const App = () => {
         <Router>
             <nav className="navbar">
                 <div>
-                    <Link to="/" className="home-link">Home</Link>
+                    <Link to="/" className="home-link" style={{ marginRight:"15px" }}>
+                        Home
+                    </Link>
                 </div>
                 <div>
                     {username ? (
@@ -49,7 +53,7 @@ const App = () => {
             </nav>
             <div className="content">
                 <Routes>
-                <Route
+                    <Route
                         path="/"
                         element={
                             username ? <Navigate to="/hotels" /> : <Navigate to="/login" />
@@ -58,7 +62,7 @@ const App = () => {
                     <Route
                         path="/login"
                         element={
-                            username ? <Navigate to="/hotels" /> : <Login onLogin={handleLogin} />
+                            username ? (<Navigate to="/hotels" />) : (<Login onLogin={handleLogin} />)
                         }
                     />
                     <Route
@@ -84,6 +88,14 @@ const App = () => {
                         element={
                             username ? <History /> : <Navigate to="/login" />
                         }
+                    />
+                    <Route
+                        path="/ModifyReview"
+                        element={username ? <ModifyReview /> : <Navigate to="/login" />}
+                    />
+                    <Route
+                        path="/AddReview/:hotelId"
+                        element={username ? <AddReview /> : <Navigate to="/login" />}
                     />
                 </Routes>
             </div>

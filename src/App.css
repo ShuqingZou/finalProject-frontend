@@ -25,7 +25,7 @@ html, body {
 }
 
 .auth-links a {
-  margin-right: 20px; /* 增大 Login 和 Register 间的间距 */
+  margin-right: 20px;
   text-decoration: none;
   color: #007bff;
   font-size: 1rem;
