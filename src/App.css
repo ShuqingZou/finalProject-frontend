@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0 20px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #f8f8f8;
 }
 
-.App-link {
-  color: #61dafb;
+.auth-links a {
+  margin-right: 20px; /* 增大 Login 和 Register 间的间距 */
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-links a:last-child {
+  margin-right: 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 20px;
+}
+
+.user-icon {
+  font-size: 1.5rem;
+}
+
+.user-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.username {
+  font-size: 1rem;
+  color: #007bff;
+}
+
+.home-link {
+  text-decoration: none;
+  width: auto;
+  color: #007bff
+}
+
+.history-link {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-right: 20px;
+}
+
+.history-link:hover {
+  color: #0056b3;
+}
+
+.logout-link {
+  margin-left: auto;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1rem;
+}
+
+.content {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+.container{
+  max-width: 600px;
+  margin: 20px auto;
 }

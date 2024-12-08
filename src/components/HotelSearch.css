@@ -1,0 +1,137 @@
+/* HotelSearch.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.jumbotron {
+    margin-bottom: 20px;
+}
+
+.jumbotron h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+.jumbotron p {
+    text-align: center;
+    font-size: 1em;
+}
+
+.description {
+    font-size: 1em;
+    color: #666;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    text-align: left; /* 搜索表单内容靠左 */
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-size: 1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 1em;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.results-container {
+    margin-top: 20px;
+    text-align: center; /* 搜索结果内容居中 */
+}
+
+.hotel-item {
+    margin-bottom: 15px;
+    padding: 0; /* 移除内边距 */
+    border: 1px solid #ccc; /* 边框与按钮保持一致 */
+    border-radius: 5px; /* 圆角与按钮保持一致 */
+    transition: box-shadow 0.3s ease;
+    overflow: auto;
+    text-align: left; /* 确保内容靠左对齐 */
+}
+
+.hotel-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 增加悬停时的阴影 */
+}
+
+.hotel-name {
+    font-size: 0.8rem; /* 与搜索按钮字体大小一致 */
+    margin: 0;
+    padding: 0.5rem 1rem;
+    color: #333;
+}
+
+.hotel-link {
+    text-decoration: none;
+    color: #007bff;
+    display: block;
+}
+
+.hotel-link:hover {
+    text-decoration: underline;
+}

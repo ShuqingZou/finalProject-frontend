@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    text-align: left;
+}
+
+.hotel-info {
+    margin-bottom: 20px;
+}
+
+.hotel-name,
+.reviews-section h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hotel-address,
+.hotel-rating {
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.expedia-link {
+    font-size: 1em;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.expedia-link:hover {
+    text-decoration: underline;
+}
+
+.reviews-section {
+    margin-top: 20px;
+}
+
+.return-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+.reviews-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.review-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #4a4a4a;
+}
+
+.review-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.review-text {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.review-info {
+    font-size: 1em;
+    color: #4a4a4a;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.expedia-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.expedia-link:hover {
+    background-color: #0056b3;
+}
+
+.loading, .error {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    margin-top: 2rem;
+}
+
+.no-reviews {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+    margin-top: 1rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination button {
+    padding: 5px 10px;
+    width: 6em;
+    font-size: 0.9em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 1em;
+    color: #373737;
+    width: 6em;
+    text-align: center;
+}
