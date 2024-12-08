@@ -38,6 +38,18 @@ const User = () => {
             <h1>User Information</h1>
             <p>Username: {userInfo.username}</p>
             <p>Last Login: {userInfo.lastLoginTime}</p>
+            <h2>Liked Hotels:</h2>
+            {userInfo.likedHotels && userInfo.likedHotels.length > 0 ? (
+                <ul>
+                    {userInfo.likedHotels.map((hotel, index) => (
+                        <li key={index}>
+                            {hotel.name} (ID: {hotel.id})
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No liked hotels found.</p>
+            )}
         </div>
     );
 };
