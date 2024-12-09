@@ -41,7 +41,7 @@ body {
     cursor : pointer;
     color: inherit;
     text-align: left;
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 .edit-icon,
@@ -55,6 +55,7 @@ body {
     font-size: 1em;
     text-decoration: none;
     cursor: pointer;
+    background-color: transparent;
     pointer-events: auto;
     z-index: 10;
 }
