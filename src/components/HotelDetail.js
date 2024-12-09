@@ -146,9 +146,11 @@ const HotelDetail = () => {
                     <h1 className="hotel-name">{hotel.name}</h1>
                     <p className="hotel-address">{hotel.address}</p>
                     <p className="hotel-rating">Average Rating: {hotel.averageRating?.toFixed(1) || 'N/A'}</p>
-                    <button className="favorite-icon" onClick={handleFavorite}>
+                    <span className="favorite-icon"
+                            onClick={handleFavorite}
+                    >
                         {isFavorite ? '💖' : '🤍'}
-                    </button>
+                    </span>
                     <a
                         href={hotel.expediaUrl}
                         target="_blank"
@@ -170,15 +172,15 @@ const HotelDetail = () => {
                         {currentReviews.map((review) => (
                             <li key={review.reviewId} className="review-item">
                                 {review.ownerFlag && (
-                                    <div style={{float: "right", display: "flex"}}>
+                                    <div style={{float: "right", display: "flex", gap:"15px"}}>
                                         <span
-                                            style={{marginRight: "5px", cursor: "pointer"}}
+                                            className="edit-icon"
                                             onClick={() => editRev(review)}
                                         >
                                             📝
                                         </span>
                                         <span
-                                            style={{cursor: "pointer"}}
+                                            className="delete-icon"
                                             onClick={() => delRev(review)}
                                         >
                                             ❌
