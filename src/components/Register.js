@@ -9,8 +9,9 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (password.length < 8 || password.length > 16) {
-            setMessage("Password must be between 8 and 16 characters.");
+        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+        if (!passwordPattern.test(password)) {
+            setMessage("Password must contain at least one letter, one number, and one special character");
             return;
         }
 
@@ -65,7 +66,9 @@ const Register = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <small>Password must be between 8 and 16 characters.</small>
+                    <small>Password must be 8-16 characters.</small>
+                    <br/>
+                    <small>Password must include at least one letter, one number, and one special character.</small>
                 </div>
                 <button type="submit">Register</button>
             </form>
