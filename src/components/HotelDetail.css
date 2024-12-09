@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -38,22 +38,21 @@ body {
 .favorite-icon {
     font-size: 2rem;
     display: inline-block;
-    margin-bottom: 5px;
     cursor : pointer;
     color: inherit;
     text-align: left;
+    margin-right: 15px;
 }
 
 .edit-icon,
 .delete-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
 .expedia-link {
     font-size: 1em;
-    color: #007bff;
     text-decoration: none;
     cursor: pointer;
     pointer-events: auto;
