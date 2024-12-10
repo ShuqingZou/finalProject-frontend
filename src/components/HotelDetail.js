@@ -10,6 +10,7 @@ const HotelDetail = () => {
     const navigate = useNavigate();
     const [hotel, setHotel] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [averageRating, setAverageRating] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [reviewsPerPage] = useState(5);
     const [loading, setLoading] = useState(true);
@@ -17,23 +18,24 @@ const HotelDetail = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        fetchHotelDetails();
+        fetchHotelInfo();
+        fetchHotelReviews();
     }, [hotelId]);
 
-    const fetchHotelDetails = async () => {
+    const fetchHotelInfo = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/hotels/${hotelId}`);
+            const response = await fetch(`/hotels/${hotelId}?type=info`);
             const data = await response.json();
             if (data.success) {
                 setHotel({
                     id: data.hotelId,
                     name: data.name,
                     address: data.address,
-                    averageRating: data.averageRating,
+                    averageRating: 0,
                     expediaUrl: data.expediaUrl,
                 });
-                setReviews(data.reviews || []);
+                //setReviews(data.reviews || []);
                 setIsFavorite(data.isFavorite || false);
             } else {
                 setError(data.message || 'Failed to fetch hotel details.');
@@ -42,6 +44,22 @@ const HotelDetail = () => {
             setError('Failed to fetch hotel details. Please try again.');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchHotelReviews = async () => {
+        try{
+            const response = await fetch(`/hotels/${hotelId}?type=reviews`);
+            const data = await response.json();
+            if (data.success) {
+                setReviews(data.reviews || []);
+                console.log(data.averageRating);
+                setAverageRating(data.averageRating);
+            } else {
+                setError(data.message || 'Failed to fetch reviews.');
+            }
+        } catch (err) {
+            setError('Failed to fetch reviews. Please try again.');
         }
     };
 
@@ -112,7 +130,7 @@ const HotelDetail = () => {
 
             const result = await response.json();
             if (result.success) {
-                fetchHotelDetails();
+                fetchHotelReviews();
             } else {
                 setMessage(result.message || "An error occurred.");
             }
@@ -145,9 +163,9 @@ const HotelDetail = () => {
                 <div className="hotel-info">
                     <h1 className="hotel-name">{hotel.name}</h1>
                     <p className="hotel-address">{hotel.address}</p>
-                    <p className="hotel-rating">Average Rating: {hotel.averageRating?.toFixed(1) || 'N/A'}</p>
+                    <p className="hotel-rating">Average Rating: {averageRating.toFixed(1) || 'N/A'}</p>
                     <span className="favorite-icon"
-                            onClick={handleFavorite}
+                          onClick={handleFavorite}
                     >
                         {isFavorite ? '💖' : '🤍'}
                     </span>
@@ -165,7 +183,7 @@ const HotelDetail = () => {
             <div className="reviews-section">
                 <h2>Reviews</h2>
                 <Link to={`/addReview/${hotelId}`} className="hotel-link">
-                    <button>addReview</button>
+                    <button>Add Review</button>
                 </Link>
                 {currentReviews.length > 0 ? (
                     <ul className="reviews-list">
@@ -188,11 +206,11 @@ const HotelDetail = () => {
                                     </div>
                                 )}
                                 <p className="review-title">
-                                    title:
+                                    Title:
                                     <span style={{fontWeight: "normal"}}>{review.title}</span>
                                 </p>
                                 <p className="review-title">
-                                    text:
+                                    Text:
                                     <span style={{fontWeight: "normal"}}>{review.text}</span>
                                 </p>
                                 <p className="review-info" style={{height: "30px"}}>
