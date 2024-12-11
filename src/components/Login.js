@@ -9,8 +9,8 @@ const Login = ({ onLogin }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Start loading when the form is submitted
-        setMessage(''); // Clear any previous messages
+        setLoading(true);
+        setMessage('');
         try {
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
@@ -56,7 +56,7 @@ const Login = ({ onLogin }) => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        disabled={loading} // Disable input while loading
+                        disabled={loading}
                     />
                 </div>
                 <div className="form-group">
@@ -68,7 +68,7 @@ const Login = ({ onLogin }) => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        disabled={loading} // Disable input while loading
+                        disabled={loading}
                     />
                 </div>
                 <button type="submit" disabled={loading}>

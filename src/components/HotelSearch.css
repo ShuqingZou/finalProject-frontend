@@ -1,4 +1,3 @@
-/* HotelSearch.css */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -43,7 +42,7 @@ body {
 
 .search-form {
     margin-bottom: 20px;
-    text-align: left; /* 搜索表单内容靠左 */
+    text-align: left;
 }
 
 .form-group {
@@ -102,25 +101,25 @@ body {
 
 .results-container {
     margin-top: 20px;
-    text-align: center; /* 搜索结果内容居中 */
+    text-align: center;
 }
 
 .hotel-item {
     margin-bottom: 15px;
-    padding: 0; /* 移除内边距 */
-    border: 1px solid #ccc; /* 边框与按钮保持一致 */
-    border-radius: 5px; /* 圆角与按钮保持一致 */
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     transition: box-shadow 0.3s ease;
     overflow: auto;
-    text-align: left; /* 确保内容靠左对齐 */
+    text-align: left;
 }
 
 .hotel-item:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 增加悬停时的阴影 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hotel-name {
-    font-size: 0.8rem; /* 与搜索按钮字体大小一致 */
+    font-size: 0.8rem;
     margin: 0;
     padding: 0.5rem 1rem;
     color: #333;

@@ -28,7 +28,7 @@ const Register = () => {
             if (response.ok && result.success) {
                 setMessage("Registration successful! Redirecting...");
                 setTimeout(() => {
-                    window.location.href = "/login"; // Redirect to login page
+                    window.location.href = "/login";
                 }, 2000);
             } else {
                 setMessage(result.message || "Registration failed. Please try again.");
