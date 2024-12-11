@@ -12,6 +12,7 @@ const HotelDetail = () => {
     const [weather, setWeather] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [reviewCount, setReviewCount] = useState(0);
+    const [comments, setComments] = useState({});
     const [averageRating, setAverageRating] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [reviewsPerPage] = useState(5);
@@ -55,7 +56,6 @@ const HotelDetail = () => {
             const data = await response.json();
             if (data.success) {
                 setReviews(data.reviews || []);
-                //console.log(data.averageRating);
                 setAverageRating(data.averageRating);
                 setReviewCount(data.reviews ? data.reviews.length : 0);
             } else {
@@ -86,6 +86,52 @@ const HotelDetail = () => {
         }catch(error){
             console.error('Error updating favorite status: ', error);
         }
+    };
+
+    const fetchComments = async (reviewId) => {
+        try{
+            const response = await fetch(`http://localhost:8080/hotels/reviews/${reviewId}/comments`);
+            const data = await response.json();
+            if (data.success) {
+                setComments((prevComments) =>({
+                    ...prevComments,
+                    [reviewId]: data.comments,
+                }));
+            }else{
+                console.error('Failed to fetch comments. Please try again.');
+            }
+        }catch(error){
+            console.error('Error updating comments. Please try again.');
+        }
+    };
+
+    const addComment = async (reviewId, commentText) => {
+        try{
+            console.log(reviewId);
+            console.log(commentText);
+            const response = await fetch(`http://localhost:8080/hotels/reviews/${reviewId}/comments`,{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({text: commentText}),
+            });
+            console.log(response);
+            const data = await response.json();
+            if (data.success) {
+                fetchHotelReviews();
+            }else {
+                console.error('Failed to add comments. Please try again.');
+            }
+        }catch(error){
+            console.error('Error updating comments. Please try again.');
+        }
+    };
+
+    const renderComments = (comments) => {
+        return comments?.map((comment, idx) => (
+            <p key={idx} className="comment-item">
+                <strong>{comment.username}: </strong>{comment.text}
+            </p>
+        ));
     };
 
     const handleExpediaClick = async () => {
@@ -252,6 +298,25 @@ const HotelDetail = () => {
                                     <strong>{review.username}</strong> - {review.date} - Rating:{" "}
                                     {review.rating}
                                 </p>
+                                {!review.owerFlag && (
+                                    <span
+                                        className="add-comment-btn"
+                                        onClick={() => {
+                                            const comment = prompt('Enter your comment:');
+                                            if (comment) addComment(review.reviewId, comment);
+                                        }}
+                                    >
+                                        ➕
+                                    </span>
+                                )}
+                                <div className="comments-section">
+                                    <h4>Comments</h4>
+                                    {review.comments && review.comments.length > 0 ? (
+                                        renderComments(review.comments)
+                                    ) : (
+                                        <p className="no-comments">No comments yet.</p>
+                                    )}
+                                </div>
                             </li>
                         ))}
                     </ul>

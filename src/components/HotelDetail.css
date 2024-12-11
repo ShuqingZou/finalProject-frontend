@@ -232,3 +232,8 @@ button:disabled {
 .weather-icon {
     font-size: 1.2em;
 }
+
+.no-comments{
+    color: grey;
+    font-style: italic;
+}
