@@ -242,6 +242,21 @@ const HotelDetail = () => {
                             </span>
                         )}
                     </p>
+                    {hotel.address && (
+                        <div className="google-map">
+                            <iframe
+                                title="Google Map"
+                                width="100%"
+                                height="300"
+                                frameBorder="0"
+                                style={{ border: 0 }}
+                                src={`https://www.google.com/maps?q=${encodeURIComponent(
+                                    hotel.address
+                                )}&output=embed`}
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    )}
                     <p className="hotel-rating">Average Rating: {averageRating.toFixed(1) || 'N/A'}
                         <span className="stars">{renderStars(averageRating)}</span>
                     </p>

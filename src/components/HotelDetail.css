@@ -237,3 +237,19 @@ button:disabled {
     color: grey;
     font-style: italic;
 }
+
+.google-map {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    position: relative;
+}
+.google-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
