@@ -190,3 +190,45 @@ button:disabled {
     width: 6em;
     text-align: center;
 }
+
+.star {
+    font-size: 1.5em;
+    margin: 0 2px;
+}
+
+.star.full {
+    color: gold;
+}
+
+.star.half {
+    color: gold;
+    background: linear-gradient(to right, gold 50%, lightgray 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.star.empty {
+    color: lightgray;
+}
+
+.stars {
+    margin-left: 10px;
+    display: inline-flex;
+}
+
+.weather-info{
+    margin-left: 30px;
+    display: inline-flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.weather-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.weather-icon {
+    font-size: 1.2em;
+}

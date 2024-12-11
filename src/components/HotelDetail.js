@@ -9,7 +9,9 @@ const HotelDetail = () => {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const [hotel, setHotel] = useState(null);
+    const [weather, setWeather] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [reviewCount, setReviewCount] = useState(0);
     const [averageRating, setAverageRating] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [reviewsPerPage] = useState(5);
@@ -35,8 +37,8 @@ const HotelDetail = () => {
                     averageRating: 0,
                     expediaUrl: data.expediaUrl,
                 });
-                //setReviews(data.reviews || []);
                 setIsFavorite(data.isFavorite || false);
+                setWeather(data.weather || null);
             } else {
                 setError(data.message || 'Failed to fetch hotel details.');
             }
@@ -53,8 +55,9 @@ const HotelDetail = () => {
             const data = await response.json();
             if (data.success) {
                 setReviews(data.reviews || []);
-                console.log(data.averageRating);
+                //console.log(data.averageRating);
                 setAverageRating(data.averageRating);
+                setReviewCount(data.reviews ? data.reviews.length : 0);
             } else {
                 setError(data.message || 'Failed to fetch reviews.');
             }
@@ -139,6 +142,23 @@ const HotelDetail = () => {
         }
     };
 
+    const renderStars = (rating) => {
+        const fullStars = Math.floor(rating);
+        const halfStars = rating % 1 >= 0.5 ? 1 : 0;
+        const emptyStars = 5 - fullStars - halfStars;
+        const stars = [];
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<span key={`full-${i}`} className="star full">★</span>);
+        }
+        if (halfStars > 0) {
+            stars.push(<span key="half" className="star half">☆</span>);
+        }
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<span key={`empty-${i}`} className="star empty">☆</span>);
+        }
+        return stars;
+    };
+
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
     const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
@@ -162,8 +182,23 @@ const HotelDetail = () => {
             {hotel && (
                 <div className="hotel-info">
                     <h1 className="hotel-name">{hotel.name}</h1>
-                    <p className="hotel-address">{hotel.address}</p>
-                    <p className="hotel-rating">Average Rating: {averageRating.toFixed(1) || 'N/A'}</p>
+                    <p className="hotel-address">{hotel.address}
+                        {weather && (
+                            <span className="weather-info">
+                                <span className="weather-item">
+                                    <span className="weather-icon" role="img" aria-label="temperature">🌡</span>
+                                    {weather.temperature}
+                                </span>
+                                <span className="weather-item">
+                                    <span className="weather-icon" role="img" aria-label="windspeed">💨</span>
+                                    {weather.windspeed}
+                                </span>
+                            </span>
+                        )}
+                    </p>
+                    <p className="hotel-rating">Average Rating: {averageRating.toFixed(1) || 'N/A'}
+                        <span className="stars">{renderStars(averageRating)}</span>
+                    </p>
                     <span className="favorite-icon"
                           onClick={handleFavorite}
                     >
@@ -181,7 +216,7 @@ const HotelDetail = () => {
                 </div>
             )}
             <div className="reviews-section">
-                <h2>Reviews</h2>
+                <h2>Reviews {reviewCount > 0 && `(${reviewCount})`}</h2>
                 <Link to={`/addReview/${hotelId}`} className="hotel-link">
                     <button>Add Review</button>
                 </Link>
